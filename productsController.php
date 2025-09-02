@@ -25,20 +25,20 @@
             else{
                 $respuesta = $productsModel->saveProducts($_POST->name,$_POST->description,$_POST->price);
             }
-            echo json_decode($respuesta);
+            echo json_encode($respuesta);
             break;
         case 'PUT':
-            $_PUT = json_decode(file_get_contents('php://input',true));
+            $_PUT = json_decode(file_get_contents('php://input'));
             if(!isset($_PUT->id) || is_null($_PUT->id) || empty(trim($_PUT->id))){
                 $respuesta =['error','El ID del producto esta vacio'];
             }
-            else if(!isset($_PUT->name) || is_null($_PUT->name) || empty(trim($_PUT->name))|| strlen($_POST->name)>80){
+            else if(!isset($_PUT->name) || is_null($_PUT->name) || empty(trim($_PUT->name))|| strlen($_PUT->name)>80){
                 $respuesta =['error','El nombre del producto esta vacio y no debe de exceder los 80 caracteres'];
                 }
-            else if(!isset($_PUT -> description)|| is_null($_PUT->description) || empty(trim($_PUT->description))|| strlen($_POST->description)>150){
+            else if(!isset($_PUT -> description)|| is_null($_PUT->description) || empty(trim($_PUT->description))|| strlen($_PUT->description)>150){
                 $respuesta = ['error','La descripcion del producto esta vacia y no debe de exceder los 150 caracteres'];
             }
-                else if(!isset($_PUT->price) || is_null($_PUT->price) || empty(trim($_PUT->price))|| !is_numeric($_PUT->price)|| strlen($_POST->price)>20){
+                else if(!isset($_PUT->price) || is_null($_PUT->price) || empty(trim($_PUT->price))|| !is_numeric($_PUT->price)|| strlen($_PUT->price)>20){
                 $respuesta = ['error','El precio del producto esta vacio, debe de ser tipo numérico y no tener más de 20 caracteres'];
             }
             else{

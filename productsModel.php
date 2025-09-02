@@ -22,16 +22,16 @@
 
         //Guardar un nuevo producto en la base de datos
         //array Resultado de la operación [status, mensaje]
-        public function saveProducts($name,$description,$price){
-            $valida = $this->validateProducts($name,$description,$price);
-            $resultado = ['error','Ya existe un producto con las mismas características'];
-            if(count($valida)==0){
-                $sql="INSERT INTO products (name,description,price) VALUES ('$name','$description',$price)";
-                mysqli_query($this->conexion,$sql);
-                $resultados = ['succes','Producto guardado'];
-            }    
-            return $resultados;
+        public function saveProducts($name, $description, $price){
+        $valida = $this->validateProducts($name, $description, $price);
+        $resultado = ['error','Ya existe un producto con las mismas características'];
+        if(count($valida) == 0){
+            $sql = "INSERT INTO products (name, description, price) VALUES ('$name', '$description', '$price')";
+            mysqli_query($this->conexion, $sql);
+            $resultado = ['success','Producto guardado'];
         }
+        return $resultado;
+    }
 
         //Actualizar un producto en la base de datos
         public function updateProducts($id,$name,$description,$price){
@@ -43,10 +43,10 @@
                 if(count($valida)==0){
                     $sql="UPDATE products SET name='$name',description='$description',price=$price WHERE id=$id";
                     mysqli_query($this->conexion,$sql);
-                    $resultados = ['succes','Producto actualizado'];
+                    $resultado = ['succes','Producto actualizado'];
                 }
         }
-            return $resultados;
+            return $resultado;
         }
 
         //Eliminar un producto por su ID
@@ -56,20 +56,24 @@
             if(count($valida)>0){
                 $sql="DELETE FROM products WHERE id=$id";
                 mysqli_query($this->conexion,$sql);
-                $resultados = ['succes','Producto eliminado'];
+                $resultado = ['succes','Producto eliminado'];
             }      
-            return $resultados;
+            return $resultado;
         }
 
         //Validar si existe un producto con las mismas características
-        public function validateProducts($name,$description,$price){
-            $products =[];
-            $sql= "SELECT * FROM products WHERE name='$name' AND description='$description' AND price=$price";
-            $registos = mysqli_query($this->conexion,$sql);
-            while($row = mysqli_fetch_assoc($registos)){
-                array_push($products,$row);
-            }
-            return $products;
+        public function validateProducts($name, $description, $price){
+        $products = [];
+         $sql = "SELECT * FROM products 
+            WHERE name = '$name' 
+            AND description = '$description' 
+            AND price = $price";
+            $registros = mysqli_query($this->conexion, $sql);
+            while($row = mysqli_fetch_assoc($registros)){
+            array_push($products, $row);
         }
+        return $products;
     }
+
+}
 ?>

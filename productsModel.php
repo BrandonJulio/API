@@ -43,7 +43,7 @@
                 if(count($valida)==0){
                     $sql="UPDATE products SET name='$name',description='$description',price=$price WHERE id=$id";
                     mysqli_query($this->conexion,$sql);
-                    $resultado = ['succes','Producto actualizado'];
+                    $resultado = ['success','Producto actualizado'];
                 }
         }
             return $resultado;
@@ -56,7 +56,7 @@
             if(count($valida)>0){
                 $sql="DELETE FROM products WHERE id=$id";
                 mysqli_query($this->conexion,$sql);
-                $resultado = ['succes','Producto eliminado'];
+                $resultado = ['success','Producto eliminado'];
             }      
             return $resultado;
         }
